@@ -1,45 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cko83rmma8nkb"]
+[gd_scene load_steps=2 format=3 uid="uid://cko83rmma8nkb"]
 
 [ext_resource type="Script" uid="uid://bldemx0tgaq3u" path="res://Scripts/Backends/OpenVRBackend.cs" id="1_ha4r6"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ha4r6"]
-
-[sub_resource type="Environment" id="Environment_5lds2"]
-background_mode = 1
-background_color = Color(0, 0, 0, 0)
-
-[node name="OpenVRBackend" type="Node" node_paths=PackedStringArray("_sceneRoot")]
+[node name="OpenVRBackend" type="Node" node_paths=PackedStringArray("ElementRoot")]
 script = ExtResource("1_ha4r6")
-_sceneRoot = NodePath("SceneOverlayContainer/SubViewport/SceneRoot")
-
-[node name="SceneOverlayContainer" type="OpenVROverlayContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="SubViewport" type="SubViewport" parent="SceneOverlayContainer"]
-transparent_bg = true
-handle_input_locally = false
-render_target_update_mode = 4
-
-[node name="SceneRoot" type="Node3D" parent="SceneOverlayContainer/SubViewport"]
-
-[node name="UIOverlayContainer" type="OpenVROverlayContainer" parent="."]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="SubViewport" type="SubViewport" parent="UIOverlayContainer"]
-disable_3d = true
-transparent_bg = true
-handle_input_locally = false
-render_target_update_mode = 4
-
-[node name="UIRoot" type="PanelContainer" parent="UIOverlayContainer/SubViewport"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_ha4r6")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="UIOverlayContainer/SubViewport"]
-environment = SubResource("Environment_5lds2")
+ElementRoot = NodePath(".")
