@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://c3m7ycqc8ts0d"]
+
+[sub_resource type="Environment" id="Environment_ewvl7"]
+background_mode = 1
+background_color = Color(0, 0, 0, 0)
+
+[node name="OverlayBackground" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_ewvl7")

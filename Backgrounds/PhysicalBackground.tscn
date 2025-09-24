@@ -1,0 +1,49 @@
+[gd_scene load_steps=9 format=3 uid="uid://cdsf76bvduiye"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_hyly2"]
+
+[sub_resource type="Sky" id="Sky_twx2w"]
+sky_material = SubResource("ProceduralSkyMaterial_hyly2")
+
+[sub_resource type="Environment" id="Environment_sfhm1"]
+background_mode = 2
+sky = SubResource("Sky_twx2w")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_hyly2"]
+size = Vector2(200, 200)
+subdivide_width = 32
+subdivide_depth = 32
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_twx2w"]
+
+[sub_resource type="Gradient" id="Gradient_hyly2"]
+offsets = PackedFloat32Array(0, 0.125, 0.75, 0.875, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_twx2w"]
+gradient = SubResource("Gradient_hyly2")
+width = 128
+height = 128
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sfhm1"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+shading_mode = 0
+albedo_texture = SubResource("GradientTexture2D_twx2w")
+
+[node name="PhysicalBackground" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_sfhm1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_hyly2")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+mesh = SubResource("PlaneMesh_twx2w")
+surface_material_override/0 = SubResource("StandardMaterial3D_sfhm1")

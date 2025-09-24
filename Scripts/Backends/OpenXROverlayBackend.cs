@@ -1,3 +1,4 @@
+using BabbleCalibration.Scripts.Elements;
 using Godot;
 
 namespace BabbleCalibration.Scripts.Backends;
@@ -11,6 +12,16 @@ public partial class OpenXROverlayBackend : Node, IBackend
         throw new System.NotImplementedException();
     }
     public void Initialize()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public ElementBase CreateHeadElement()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public ElementBase CreateWorldElement()
     {
         throw new System.NotImplementedException();
     }

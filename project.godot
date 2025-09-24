@@ -15,6 +15,23 @@ run/main_scene="uid://bwo8dbr2ar8cy"
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+OpenVRInterface="*res://addons/godot-openvr/openvr_autoloader.gd"
+
+[display]
+
+window/size/transparent=true
+window/per_pixel_transparency/allowed=true
+
 [dotnet]
 
 project/assembly_name="BabbleCalibration"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot-openvr/plugin.cfg")
+
+[xr]
+
+shaders/enabled=true

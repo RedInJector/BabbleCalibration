@@ -40,11 +40,11 @@ public partial class MainScene : Node
         if (enableOpenVr && (enableXr || enableXrOverlay)) throw new Exception("Invalid configuration, OpenXR cannot be enabled at the same time as OpenVR");
         if (enableXrOverlay && !enableXr) throw new Exception("Invalid configuration, OpenXR must be enabled to use OpenXR Overlay");
 
-        if (enableOpenVr)
-            Backend = OpenVRBackend.Create();
-        else
-            Backend = enableXrOverlay ? OpenXROverlayBackend.Create() : OpenXRBackend.Create();
+        if (enableOpenVr) Backend = OpenVRBackend.Create();
+        else Backend = enableXrOverlay ? OpenXROverlayBackend.Create() : OpenXRBackend.Create();
         
+        AddChild(Backend.Self);
         
+        Backend.Initialize();
     }
 }
