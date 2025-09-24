@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://calrg3c37niww"]
+
+[ext_resource type="Script" uid="uid://ba5kv4y4cklgc" path="res://Scripts/Elements/OpenXRElement.cs" id="1_2kiyq"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_kasu6"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_2kiyq"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2kiyq"]
+resource_local_to_scene = true
+transparency = 1
+shading_mode = 0
+albedo_texture = SubResource("ViewportTexture_2kiyq")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2kiyq"]
+
+[node name="OpenXRElement" type="Node" node_paths=PackedStringArray("Viewport", "Mesh", "Root")]
+process_priority = 10
+script = ExtResource("1_2kiyq")
+Viewport = NodePath("SubViewport")
+Mesh = NodePath("MeshInstance3D")
+PlaneMesh = SubResource("QuadMesh_kasu6")
+Root = NodePath("SubViewport/UIRoot")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_kasu6")
+surface_material_override/0 = SubResource("StandardMaterial3D_2kiyq")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+
+[node name="UIRoot" type="PanelContainer" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_2kiyq")

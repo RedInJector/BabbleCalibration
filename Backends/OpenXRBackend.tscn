@@ -3,9 +3,10 @@
 [ext_resource type="Script" uid="uid://br7kpac361jgf" path="res://Scripts/Backends/OpenXRBackend.cs" id="1_vpvmq"]
 [ext_resource type="PackedScene" uid="uid://cdsf76bvduiye" path="res://Backgrounds/PhysicalBackground.tscn" id="2_ig31o"]
 
-[node name="OpenXRBackend" type="Node" node_paths=PackedStringArray("_sceneRoot")]
+[node name="OpenXRBackend" type="Node" node_paths=PackedStringArray("Camera", "ElementRoot")]
 script = ExtResource("1_vpvmq")
-_sceneRoot = NodePath("")
+Camera = NodePath("Scene/XROrigin3D/XRCamera3D")
+ElementRoot = NodePath("Scene/ElementRoot")
 
 [node name="Scene" type="Node3D" parent="."]
 
@@ -20,3 +21,5 @@ tracker = &"left_hand"
 tracker = &"left_hand"
 
 [node name="PhysicalBackground" parent="Scene" instance=ExtResource("2_ig31o")]
+
+[node name="ElementRoot" type="Node" parent="Scene"]

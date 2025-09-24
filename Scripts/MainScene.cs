@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using BabbleCalibration.Scripts;
 using BabbleCalibration.Scripts.Backends;
+using Environment = System.Environment;
 
 public partial class MainScene : Node
 {
@@ -16,20 +17,14 @@ public partial class MainScene : Node
 
         var args = OS.GetCmdlineArgs();
         var argsLower = args.Select(i => i.ToLowerInvariant().Trim()).ToArray();
-
+        
         var enableXr = false;
         var enableXrOverlay = false;
         var enableOpenVr = false;
+        
+        var xrInterface = XRServer.FindInterface("OpenXR");
+        if (xrInterface != null && xrInterface.IsInitialized()) enableXr = true;
 
-        for (var i = 0; i < argsLower.Length - 1; i++)
-        {
-            var item = argsLower[i];
-            if (item == "--xr-mode")
-            {
-                var item2 = argsLower[i + 1];
-                if (item2 == "on") enableXr = true;
-            }
-        }
         foreach (var item in argsLower)
         {
             if (item == "--use-openvr") enableOpenVr = true;
@@ -46,5 +41,15 @@ public partial class MainScene : Node
         AddChild(Backend.Self);
         
         Backend.Initialize();
+
+        var reticule = Backend.CreateWorldElement();
+        var reticuleTex = new TextureRect
+        {
+            Texture = ResourceLoader.Load<Texture2D>("res://Assets/reticule.svg"),
+            ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
+            StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
+        };
+        reticule.Root.AddChild(reticuleTex);
+        reticule.ElementTransform = Transform3D.Identity.TranslatedLocal(Vector3.Forward + Vector3.Up);
     }
 }
