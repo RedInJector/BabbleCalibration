@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://cps0vtg0irhu2"]
+
+[ext_resource type="VideoStream" uid="uid://cunwiylb8ugyl" path="res://Assets/BabbleCalibration.ogv" id="1_air3y"]
+[ext_resource type="Script" uid="uid://c8wvurdearijl" path="res://Scripts/VideoAspectRatioContainer.cs" id="1_vey6c"]
+
+[node name="TutorialRoutine" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "BlaBlaBla"
+horizontal_alignment = 1
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="." node_paths=PackedStringArray("Video")]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("1_vey6c")
+Video = NodePath("VideoStreamPlayer")
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="AspectRatioContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+stream = ExtResource("1_air3y")
+autoplay = true
+expand = true
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "BlaBlaBla
+fuck"
+horizontal_alignment = 1

@@ -3,12 +3,14 @@ using System;
 using System.Linq;
 using BabbleCalibration.Scripts;
 using BabbleCalibration.Scripts.Backends;
-using Environment = System.Environment;
+using BabbleCalibration.Scripts.Routines;
+using Godot.Collections;
 
 public partial class MainScene : Node
 {
     public static MainScene Instance { get; private set; }
     public IBackend Backend { get; private set; }
+    public RoutineBase CurrentRoutine { get; private set; }
     public override void _Ready()
     {
         base._Ready();
@@ -41,15 +43,15 @@ public partial class MainScene : Node
         AddChild(Backend.Self);
         
         Backend.Initialize();
+        
+        StartRoutine<TutorialRoutine>();
+    }
 
-        var reticule = Backend.CreateWorldElement();
-        var reticuleTex = new TextureRect
-        {
-            Texture = ResourceLoader.Load<Texture2D>("res://Assets/reticule.svg"),
-            ExpandMode = TextureRect.ExpandModeEnum.IgnoreSize,
-            StretchMode = TextureRect.StretchModeEnum.KeepAspectCentered,
-        };
-        reticule.Root.AddChild(reticuleTex);
-        reticule.ElementTransform = Transform3D.Identity.TranslatedLocal(Vector3.Forward + Vector3.Up);
+    public void StartRoutine<T>(Dictionary args = null) where T : RoutineBase, new()
+    {
+        CurrentRoutine?.End();
+        Backend.ClearElements();
+        CurrentRoutine = new T();
+        CurrentRoutine.Initialize(Backend, args);
     }
 }

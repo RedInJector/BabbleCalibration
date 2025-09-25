@@ -9,7 +9,7 @@ public partial class OpenXRBackend : Node, IBackend
     [Export] public Node ElementRoot;
     public Node Self => this;
     public bool IsOverlay => false;
-    public static IBackend Create() => ResourceLoader.Load<PackedScene>("res://Backends/OpenXRBackend.tscn").Instantiate<OpenXRBackend>();
+    public static IBackend Create() => ResourceLoader.Load<PackedScene>("res://Scenes/Backends/OpenXRBackend.tscn").Instantiate<OpenXRBackend>();
 
     public void Initialize()
     {
@@ -35,4 +35,5 @@ public partial class OpenXRBackend : Node, IBackend
         ElementRoot.AddChild(elem);
         return elem;
     }
+    public void ClearElements() => BackendHelpers.ClearAllChildren(ElementRoot);
 }

@@ -25,4 +25,9 @@ public partial class OpenXROverlayBackend : Node, IBackend
     {
         throw new System.NotImplementedException();
     }
+
+    public void ClearElements()
+    {
+        throw new System.NotImplementedException();
+    }
 }

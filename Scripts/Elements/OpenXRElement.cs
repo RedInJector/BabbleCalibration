@@ -48,5 +48,5 @@ public partial class OpenXRElement : ElementBase
         Mesh.GlobalTransform = (Head?.GlobalTransform ?? Transform3D.Identity) * _transform;
     }
     
-    public static OpenXRElement CreateElement() => ResourceLoader.Load<PackedScene>("res://Elements/OpenXRElement.tscn").Instantiate<OpenXRElement>();
+    public static OpenXRElement CreateElement() => ResourceLoader.Load<PackedScene>("res://Scenes/Elements/OpenXRElement.tscn").Instantiate<OpenXRElement>();
 }

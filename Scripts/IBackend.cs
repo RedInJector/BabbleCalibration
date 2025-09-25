@@ -33,4 +33,8 @@ public interface IBackend
     /// </summary>
     /// <returns>The created element</returns>
     public abstract ElementBase CreateWorldElement();
+    /// <summary>
+    /// Clears all elements
+    /// </summary>
+    public abstract void ClearElements();
 }

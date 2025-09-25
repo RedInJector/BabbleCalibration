@@ -8,7 +8,7 @@ public partial class OpenVRBackend : Node, IBackend
     [Export] public Node ElementRoot;
     public Node Self => this;
     public bool IsOverlay => true;
-    public static IBackend Create() => ResourceLoader.Load<PackedScene>("res://Backends/OpenVRBackend.tscn").Instantiate<OpenVRBackend>();
+    public static IBackend Create() => ResourceLoader.Load<PackedScene>("res://Scenes/Backends/OpenVRBackend.tscn").Instantiate<OpenVRBackend>();
     public void Initialize()
     {
         var global = GetNode("/root/OpenVRInterface");
@@ -33,5 +33,8 @@ public partial class OpenVRBackend : Node, IBackend
         elem.HeadMode = true;
         return elem;
     }
-    private OpenVRElement CreateElement() => ResourceLoader.Load<PackedScene>("res://Elements/OpenVRElement.tscn").Instantiate<OpenVRElement>();
+
+    public void ClearElements() => BackendHelpers.ClearAllChildren(ElementRoot);
+
+    private OpenVRElement CreateElement() => ResourceLoader.Load<PackedScene>("res://Scenes/Elements/OpenVRElement.tscn").Instantiate<OpenVRElement>();
 }
