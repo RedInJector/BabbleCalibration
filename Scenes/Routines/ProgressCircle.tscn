@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0wp0m8v6c2nj"]
+
+[ext_resource type="Script" uid="uid://ga6wqraothun" path="res://Scripts/ProgressCircle.cs" id="1_dv882"]
+[ext_resource type="Shader" uid="uid://cee03cxwfr3u6" path="res://Assets/Shaders/ProgressCircle.gdshader" id="1_l7vv2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4utdt"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dv882"]
+shader = ExtResource("1_l7vv2")
+shader_parameter/Progress = 0.0
+shader_parameter/CenterDistance = 0.5
+shader_parameter/ProgressStart = 0.75
+shader_parameter/ProgressEnd = 1.0
+shader_parameter/CenterColor = Color(1, 1, 1, 1)
+shader_parameter/InProgress = Color(0, 1, 0, 1)
+shader_parameter/DoneProgress = Color(1, 0, 0, 1)
+
+[node name="ProgressCircle" type="PanelContainer" node_paths=PackedStringArray("Timer")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_4utdt")
+script = ExtResource("1_dv882")
+AutoStart = true
+_shaderMaterial = SubResource("ShaderMaterial_dv882")
+Timer = NodePath("Timer")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="AspectRatioContainer"]
+material = SubResource("ShaderMaterial_dv882")
+layout_mode = 2
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
