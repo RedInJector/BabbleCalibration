@@ -47,6 +47,13 @@ public partial class MainScene : Node
         StartRoutine<TutorialRoutine>();
     }
 
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+        var deltaf = (float)delta;
+        CurrentRoutine?.Update(deltaf);
+    }
+
     public void StartRoutine<T>(Dictionary args = null) where T : RoutineBase, new()
     {
         CurrentRoutine?.End();
