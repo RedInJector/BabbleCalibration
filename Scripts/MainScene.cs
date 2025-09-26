@@ -49,8 +49,11 @@ public partial class MainScene : Node
         Backend.Initialize();
         
         //StartRoutine<TextRoutine>(RoutineHelpers.LabelRoutineArgs("blah"));
-        StartRoutine<TextRoutine>(RoutineHelpers.LabelRoutineArgs("im on your FACE", true, Transform3D.Identity.TranslatedLocal(Vector3.Forward)));
+        //StartRoutine<TextRoutine>(RoutineHelpers.LabelRoutineArgs("im on your FACE", true, Transform3D.Identity.TranslatedLocal(Vector3.Forward)));
         //StartRoutine<TutorialRoutine>();
+        //StartRoutine<TextTimerRoutine>(RoutineHelpers.LabelTimerRoutineArgs("timer {0} yippeeeeeee", 20, true, Transform3D.Identity.TranslatedLocal(Vector3.Forward)));
+        //StartRoutine<ImageRoutine>(RoutineHelpers.FilePathRoutineArgs("res://Assets/reticule.svg", "FUUUUUUU"));
+        StartRoutine<VideoRoutine>(RoutineHelpers.FilePathRoutineArgs("res://Assets/BabbleCalibration.ogv", "weewoo"));
     }
 
     public override void _Process(double delta)
