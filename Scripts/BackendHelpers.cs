@@ -18,6 +18,16 @@ public static class BackendHelpers
         var elem = rout.Backend.CreateElementWithObject(interf, head);
         return (elem, interf);
     }
+    
+    public static (ElementBase Element, ProgressCircle Interface) CreateProgressCircle(this RoutineBase rout, float time, bool head = false, Transform3D? transform = null)
+    {
+        var interf = RoutineBase.LoadScene<ProgressCircle>("res://Scenes/Routines/ProgressCircle.tscn");
+        interf.Time = time;
+        interf.AutoStart = true;
+        var elem = rout.Backend.CreateElementWithObject(interf, head);
+        elem.ElementTransform = transform ?? (head ? Transform3D.Identity.TranslatedLocal(Vector3.Forward) : Transform3D.Identity.TranslatedLocal(Vector3.Forward + Vector3.Up));
+        return (elem, interf);
+    }
 
     public static void ClearAllChildren(Node node)
     {
