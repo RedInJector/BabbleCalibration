@@ -11,6 +11,13 @@ public static class BackendHelpers
         elem.Root.AddChild(obj);
         return elem;
     }
+    
+    public static (ElementBase Element, T Interface) Load<T>(this RoutineBase rout, string path) where T : Control
+    {
+        var interf = RoutineBase.LoadScene<T>(path);
+        var elem = rout.Backend.CreateElementWithObject(interf);
+        return (elem, interf);
+    }
 
     public static void ClearAllChildren(Node node)
     {

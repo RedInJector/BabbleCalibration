@@ -23,6 +23,7 @@ public partial class MainScene : Node
         var enableXr = false;
         var enableXrOverlay = false;
         var enableOpenVr = false;
+        var enableDebug = false;
         
         var xrInterface = XRServer.FindInterface("OpenXR");
         if (xrInterface != null && xrInterface.IsInitialized()) enableXr = true;
@@ -30,16 +31,19 @@ public partial class MainScene : Node
         foreach (var item in argsLower)
         {
             if (item == "--use-openvr") enableOpenVr = true;
+            else if (item == "--use-debug") enableDebug = true;
             else if (item == "--use-openxr-overlay") enableXrOverlay = true;
         }
 
-        if (!enableOpenVr && !enableXr) throw new Exception("Invalid configuration, no backend provided");
+        if (!enableOpenVr && !enableXr && !enableDebug) throw new Exception("Invalid configuration, no backend provided");
         if (enableOpenVr && (enableXr || enableXrOverlay)) throw new Exception("Invalid configuration, OpenXR cannot be enabled at the same time as OpenVR");
         if (enableXrOverlay && !enableXr) throw new Exception("Invalid configuration, OpenXR must be enabled to use OpenXR Overlay");
 
         if (enableOpenVr) Backend = OpenVRBackend.Create();
+        else if (enableDebug) Backend = DebugBackend.Create();
         else Backend = enableXrOverlay ? OpenXROverlayBackend.Create() : OpenXRBackend.Create();
-        
+
+
         AddChild(Backend.Self);
         
         Backend.Initialize();

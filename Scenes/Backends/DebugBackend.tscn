@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4uq3jx8jd3hl"]
+
+[ext_resource type="Script" uid="uid://c2fvauvu1ekar" path="res://Scripts/Backends/DebugBackend.cs" id="1_ygwc5"]
+[ext_resource type="PackedScene" uid="uid://cdsf76bvduiye" path="res://Scenes/Backgrounds/PhysicalBackground.tscn" id="2_unrbk"]
+
+[node name="DebugBackend" type="Node" node_paths=PackedStringArray("Camera", "ElementRoot")]
+script = ExtResource("1_ygwc5")
+Camera = NodePath("Camera3D")
+ElementRoot = NodePath("ElementRoot")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.9076164, 0.4198006, 0, -0.4198006, 0.9076164, 0, 1.8, 0)
+current = true
+
+[node name="ElementRoot" type="Node" parent="."]
+
+[node name="PhysicalBackground" parent="." instance=ExtResource("2_unrbk")]
