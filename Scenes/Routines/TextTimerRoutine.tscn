@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3v2mok45x4s8"]
+
+[ext_resource type="Script" uid="uid://doqkkhvohe6pe" path="res://Scripts/RoutineInterfaces/LabelTimerRoutineInterface.cs" id="1_owx1i"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_owx1i"]
+
+[node name="TextTimerRoutine" type="PanelContainer" node_paths=PackedStringArray("Label", "Timer")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_owx1i")
+script = ExtResource("1_owx1i")
+Label = NodePath("Label")
+Timer = NodePath("Timer")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "placeholder"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]

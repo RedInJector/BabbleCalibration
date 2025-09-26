@@ -14,4 +14,15 @@ public static class RoutineHelpers
             {"transform", transform ?? Transform3D.Identity.TranslatedLocal(Vector3.Forward + Vector3.Up) }
         };
     }
+    
+    public static Dictionary LabelTimerRoutineArgs(string text, float time, bool head = false, Transform3D? transform = null)
+    {
+        return new Dictionary
+        {
+            {"text", text },
+            {"head", head },
+            {"transform", transform ?? Transform3D.Identity.TranslatedLocal(Vector3.Forward + Vector3.Up) },
+            { "time", time }
+        };
+    }
 }
