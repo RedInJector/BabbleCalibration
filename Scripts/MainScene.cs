@@ -48,7 +48,9 @@ public partial class MainScene : Node
         
         Backend.Initialize();
         
-        StartRoutine<TutorialRoutine>();
+        //StartRoutine<TextRoutine>(RoutineHelpers.LabelRoutineArgs("blah"));
+        StartRoutine<TextRoutine>(RoutineHelpers.LabelRoutineArgs("im on your FACE", true, Transform3D.Identity.TranslatedLocal(Vector3.Forward)));
+        //StartRoutine<TutorialRoutine>();
     }
 
     public override void _Process(double delta)

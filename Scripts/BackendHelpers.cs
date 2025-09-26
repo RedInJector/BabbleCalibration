@@ -12,10 +12,10 @@ public static class BackendHelpers
         return elem;
     }
     
-    public static (ElementBase Element, T Interface) Load<T>(this RoutineBase rout, string path) where T : Control
+    public static (ElementBase Element, T Interface) Load<T>(this RoutineBase rout, string path, bool head = false) where T : Control
     {
         var interf = RoutineBase.LoadScene<T>(path);
-        var elem = rout.Backend.CreateElementWithObject(interf);
+        var elem = rout.Backend.CreateElementWithObject(interf, head);
         return (elem, interf);
     }
 
