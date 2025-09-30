@@ -5,3 +5,8 @@
 [node name="OpenVRBackend" type="Node" node_paths=PackedStringArray("ElementRoot")]
 script = ExtResource("1_ha4r6")
 ElementRoot = NodePath(".")
+
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+
+[node name="XRController3D" type="XRController3D" parent="XROrigin3D"]
+tracker = &"head"

@@ -24,9 +24,9 @@ public class TextRoutine : RoutineBase
             if (args.TryGetValue("transform", out value) && value.VariantType is Variant.Type.Transform3D) 
                 transform = value.AsTransform3D();
             
-            var (tutorial, interf) = this.Load<LabelRoutineInterface>("res://Scenes/Routines/TextRoutine.tscn", head);
+            var (element, interf) = this.Load<LabelRoutineInterface>("res://Scenes/Routines/TextRoutine.tscn", head);
             interf.Label.Text = text;
-            tutorial.ElementTransform = transform;
+            element.ElementTransform = transform;
         }
     }
 }

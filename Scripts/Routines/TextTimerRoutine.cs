@@ -28,8 +28,8 @@ public class TextTimerRoutine : RoutineBase
                 time = value.AsSingle();
             
             
-            (var tutorial, Interface) = this.Load<LabelTimerRoutineInterface>("res://Scenes/Routines/TextTimerRoutine.tscn", head);
-            tutorial.ElementTransform = transform;
+            (var element, Interface) = this.Load<LabelTimerRoutineInterface>("res://Scenes/Routines/TextTimerRoutine.tscn", head);
+            element.ElementTransform = transform;
 
             Interface.Timer.WaitTime = time;
             Interface.Timer.Start();

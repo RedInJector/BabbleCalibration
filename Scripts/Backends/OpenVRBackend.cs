@@ -6,6 +6,8 @@ namespace BabbleCalibration.Scripts.Backends;
 public partial class OpenVRBackend : Node, IBackend
 {
     [Export] public Node ElementRoot;
+    [Export] public XRController3D Head;
+    private XRInterface _interface;
     public Node Self => this;
     public bool IsOverlay => true;
     public static IBackend Create() => ResourceLoader.Load<PackedScene>("res://Scenes/Backends/OpenVRBackend.tscn").Instantiate<OpenVRBackend>();
@@ -18,6 +20,8 @@ public partial class OpenVRBackend : Node, IBackend
         xrInt.Call("set_tracking_universe", 1);
 
         xrInt.Call("initialize");
+
+        _interface = xrInt;
     }
 
     public ElementBase CreateHeadElement()
@@ -35,6 +39,15 @@ public partial class OpenVRBackend : Node, IBackend
     }
 
     public void ClearElements() => BackendHelpers.ClearAllChildren(ElementRoot);
+    public Transform3D HeadTransform() => Head.GlobalTransform;
+
+    public Transform3D EyeTransform(bool left)
+    {
+        var head = Head.GlobalTransform;
+        var eyeBall = _interface.GetTransformForView(left ? 1u : 0u, Transform3D.Identity);
+
+        return new Transform3D(head.Basis, eyeBall.Origin);
+    }
 
     private OpenVRElement CreateElement() => ResourceLoader.Load<PackedScene>("res://Scenes/Elements/OpenVRElement.tscn").Instantiate<OpenVRElement>();
 }

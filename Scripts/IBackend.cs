@@ -37,4 +37,15 @@ public interface IBackend
     /// Clears all elements
     /// </summary>
     public abstract void ClearElements();
+    /// <summary>
+    /// Get global transform of head
+    /// </summary>
+    /// <returns></returns>
+    public abstract Transform3D HeadTransform();
+    /// <summary>
+    /// Get global transform of an eye
+    /// </summary>
+    /// <param name="left">If true, left eye, otherwise right</param>
+    /// <returns></returns>
+    public abstract Transform3D EyeTransform(bool left);
 }

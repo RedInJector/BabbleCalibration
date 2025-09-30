@@ -26,10 +26,10 @@ public class ImageRoutine : RoutineBase
             if (args.TryGetValue("transform", out value) && value.VariantType is Variant.Type.Transform3D) 
                 transform = value.AsTransform3D();
             
-            var (tutorial, interf) = this.Load<TextureRoutineInterface>("res://Scenes/Routines/ImageRoutine.tscn", head);
+            var (element, interf) = this.Load<TextureRoutineInterface>("res://Scenes/Routines/ImageRoutine.tscn", head);
             interf.TextureRect.Texture = ResourceLoader.Load<Texture2D>(imagePath);
             interf.Label.Text = text;
-            tutorial.ElementTransform = transform;
+            element.ElementTransform = transform;
         }
     }
 }

@@ -33,7 +33,16 @@ public static class RoutineHelpers
             {"text", text },
             {"head", head },
             {"transform", transform ?? Transform3D.Identity.TranslatedLocal(Vector3.Forward + Vector3.Up) },
-            { "time", time }
+            {"time", time }
+        };
+    }
+    
+    public static Dictionary ReticleRoutineArgs(Transform3D transform, float time)
+    {
+        return new Dictionary
+        {
+            {"time", time },
+            {"transform", transform },
         };
     }
 }

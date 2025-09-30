@@ -5,6 +5,7 @@ using Godot.Collections;
 
 namespace BabbleCalibration.Scripts.Routines;
 
+[Obsolete("Use VideoRoutine")]
 public class TutorialRoutine : RoutineBase
 {
     public LabelRoutineInterface Interface;

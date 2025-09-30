@@ -30,4 +30,14 @@ public partial class OpenXROverlayBackend : Node, IBackend
     {
         throw new System.NotImplementedException();
     }
+
+    public Transform3D HeadTransform()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public Transform3D EyeTransform(bool left)
+    {
+        throw new System.NotImplementedException();
+    }
 }

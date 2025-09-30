@@ -19,9 +19,16 @@ public partial class ProgressCircle : PanelContainer
         Timer.WaitTime = Time;
         if (AutoStart) Timer.Start();
     }
+
+    public void Start(float time)
+    {
+        Time = time;
+        Timer.WaitTime = Time;
+        Timer.Start();
+    }
     public override void _Process(double delta)
     {
         base._Process(delta);
-        _shaderMaterial.SetShaderParameter(ProgressParam, (float)(Timer.TimeLeft / Time));
+        _shaderMaterial.SetShaderParameter(ProgressParam, 1 - (float)(Timer.TimeLeft / Time));
     }
 }

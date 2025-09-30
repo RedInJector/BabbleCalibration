@@ -6,6 +6,11 @@ namespace BabbleCalibration.Scripts.Routines;
 
 public class VideoRoutine : RoutineBase
 {
+    private bool _updateTimer;
+    private string _text;
+    private VideoRoutineInterface _interface;
+    private Label _label;
+    private VideoStreamPlayer _player;
     public override void Initialize(IBackend backend, Dictionary args = null)
     {
         base.Initialize(backend, args);
@@ -31,6 +36,18 @@ public class VideoRoutine : RoutineBase
             interf.Video.Play();
             interf.Label.Text = text;
             tutorial.ElementTransform = transform;
+
+            _interface = interf;
+            _text = text;
+            if (text.Contains("{0}")) _updateTimer = true;
         }
+    }
+
+    public override void Update(float delta)
+    {
+        base.Update(delta);
+        if (!_updateTimer) return;
+        var left = _interface.Video.IsPlaying() ? (float)(_interface.Video.GetStreamLength() - _interface.Video.StreamPosition) : 0;
+        _interface.Label.Text = string.Format(_text, left.ToString("N0"));
     }
 }
