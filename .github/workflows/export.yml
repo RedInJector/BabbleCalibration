@@ -29,11 +29,11 @@ jobs:
       - name: Upload Windows artifact
         uses: actions/upload-artifact@v4
         with:
-          name: "Windows.zip"
+          name: "Windows"
           path: ${{ steps.export.outputs.build_directory }}/Windows/*
 
       - name: Upload Linux artifact
         uses: actions/upload-artifact@v4
         with:
-          name: "Linux.zip"
+          name: "Linux"
           path: ${{ steps.export.outputs.build_directory }}/Linux/*
