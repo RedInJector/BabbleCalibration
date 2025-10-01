@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=3 uid="uid://bowfsnn0a2oxg"]
+
+[ext_resource type="Texture2D" uid="uid://cetxfxpqxyefg" path="res://Assets/chevron.svg" id="1_j2nrp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pw23l"]
+
+[sub_resource type="Gradient" id="Gradient_pw23l"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.875, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_j2nrp"]
+gradient = SubResource("Gradient_pw23l")
+width = 512
+height = 512
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[node name="FloorIndicator" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxEmpty_pw23l")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="AspectRatioContainer"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_j2nrp")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="AspectRatioContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 128
+theme_override_constants/margin_top = 128
+theme_override_constants/margin_right = 128
+theme_override_constants/margin_bottom = 128
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="AspectRatioContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="AspectRatioContainer/MarginContainer/AspectRatioContainer"]
+layout_mode = 2
+texture = ExtResource("1_j2nrp")
+expand_mode = 1
+stretch_mode = 5
+flip_v = true

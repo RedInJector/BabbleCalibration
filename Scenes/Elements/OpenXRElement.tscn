@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://ba5kv4y4cklgc" path="res://Scripts/Elements/OpenXRElement.cs" id="1_2kiyq"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_kasu6"]
+resource_local_to_scene = true
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_2kiyq"]
 viewport_path = NodePath("SubViewport")

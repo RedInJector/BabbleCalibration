@@ -14,6 +14,18 @@ public class GodotPacketHandler : PacketHandlerAdapter
         Dispatcher = dispatcher;
         Dispatcher.RegisterHandler(this);
     }
+    
+    public override void OnStartRoutine(RunVariableLenghtRoutinePacket routine)
+    {
+        var name = routine.RoutineName;
+        var time = routine.Time;
+        
+        Callable.From(() =>
+        {
+            var routineToDo = name.ToLower().Trim();
+            MainScene.Instance.StartRoutine(routineToDo, (float)time.TotalSeconds);
+        }).CallDeferred();
+    }
 
     public override void OnStartRoutine(RunFixedLenghtRoutinePacket routine)
     {

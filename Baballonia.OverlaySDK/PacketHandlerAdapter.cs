@@ -10,6 +10,11 @@ public abstract class PacketHandlerAdapter
 
         }
 
+        public virtual void OnStartRoutine(RunVariableLenghtRoutinePacket routine)
+        {
+            
+        }
+
         public virtual void OnEOC(EndOfConnectionPacket eoc)
         {
 
