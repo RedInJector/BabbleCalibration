@@ -77,7 +77,7 @@ public partial class MainScene : Node
         StartRoutine<TextRoutine>(RoutineHelpers.LabelRoutineArgs("Connecting to Baballonia...", true, Transform3D.Identity.TranslatedLocal(Vector3.Forward)));
     }
 
-    public void SendPacket(IPacket packet)
+    public void SendPacket<T>(T packet) where T : IPacket
     {
         if (!_sendPackets) return;
         PacketHandler.Dispatcher.Dispatch(packet);
