@@ -4,4 +4,7 @@
     <TargetFramework Condition=" '$(GodotTargetPlatform)' == 'android' ">net9.0</TargetFramework>
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Project-Babble.Baballonia.OverlaySDK" Version="1.0.0" />
+  </ItemGroup>
 </Project>

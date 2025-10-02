@@ -33,7 +33,7 @@ public partial class MainScene : Node
                     new GodotLogger(), 
                     new EventDrivenJsonClient
                     (
-                        new EventDrivenTcpClient(SocketFactory.CreateClient("127.0.0.1", 2425)) //TODO put the correct port here
+                        new EventDrivenTcpClient(new SocketFactory().CreateClient("127.0.0.1", 2425)) //TODO put the correct port here
                     )
                 )
             );
