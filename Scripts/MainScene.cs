@@ -93,7 +93,16 @@ public partial class MainScene : Node
                     Transform3D.Identity.TranslatedLocal(Vector3.Forward)));
                 break;
             case "gaze":
-                StartRoutine<ReticleRoutine>(RoutineHelpers.ReticleRoutineArgs(Transform3D.Identity.TranslatedLocal((Vector3.Forward * 3) + Vector3.Up), time));
+                StartRoutine<ReticleRoutine>(RoutineHelpers.ReticleRoutineArgs(
+                    Transform3D.Identity.TranslatedLocal((Vector3.Forward * 3) + Vector3.Up), time));
+                break;
+            case "blinktutorial":
+                StartRoutine<TextTimerRoutine>(RoutineHelpers.LabelTimerRoutineArgs("in {0} seconds you close eyes okay",
+                    time, false, Transform3D.Identity.TranslatedLocal(Vector3.Forward)));
+                break;
+            case "blink":
+                StartRoutine<TextTimerRoutine>(RoutineHelpers.LabelTimerRoutineArgs("KEEP EYES CLOSED {0} MORE SECONDS",
+                    time, false, Transform3D.Identity.TranslatedLocal(Vector3.Forward)));
                 break;
         }
     }
