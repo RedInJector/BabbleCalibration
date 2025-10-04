@@ -98,11 +98,11 @@ public partial class MainScene : Node
                 break;
             case "blinktutorial":
                 StartRoutine<TextTimerRoutine>(RoutineHelpers.LabelTimerRoutineArgs("in {0} seconds you close eyes okay",
-                    time, false, Transform3D.Identity.TranslatedLocal(Vector3.Forward)));
+                    time, true, Transform3D.Identity.TranslatedLocal(Vector3.Forward)));
                 break;
             case "blink":
                 StartRoutine<TextTimerRoutine>(RoutineHelpers.LabelTimerRoutineArgs("KEEP EYES CLOSED {0} MORE SECONDS",
-                    time, false, Transform3D.Identity.TranslatedLocal(Vector3.Forward)));
+                    time, true, Transform3D.Identity.TranslatedLocal(Vector3.Forward)));
                 break;
             case "close":
                 GetTree().Quit();
