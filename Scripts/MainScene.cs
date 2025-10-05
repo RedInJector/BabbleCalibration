@@ -92,6 +92,10 @@ public partial class MainScene : Node
                     "TODO i dont know what text is supposed to go here {0}", true,
                     Transform3D.Identity.TranslatedLocal(Vector3.Forward)));
                 break;
+            case "gazetutorialshort":
+                StartRoutine<TextTimerRoutine>(RoutineHelpers.LabelTimerRoutineArgs("in {0} seconds you look at reticle okay",
+                    time, true, Transform3D.Identity.TranslatedLocal(Vector3.Forward)));
+                break;
             case "gaze":
                 StartRoutine<ReticleRoutine>(RoutineHelpers.ReticleRoutineArgs(
                     Transform3D.Identity.TranslatedLocal((Vector3.Forward * 3) + Vector3.Up), time));
