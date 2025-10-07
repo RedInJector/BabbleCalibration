@@ -32,6 +32,10 @@ project/assembly_name="BabbleCalibration"
 
 enabled=PackedStringArray("res://addons/godot-openvr/plugin.cfg")
 
+[gui]
+
+theme/default_font_multichannel_signed_distance_field=true
+
 [xr]
 
 shaders/enabled=true
