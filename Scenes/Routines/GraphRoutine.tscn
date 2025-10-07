@@ -1,0 +1,126 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3lgu88tpkvr6"]
+
+[ext_resource type="Script" uid="uid://baigfdnv1fsf" path="res://Scripts/RoutineInterfaces/GraphRoutineInterface.cs" id="1_1rpxc"]
+[ext_resource type="Script" uid="uid://co4lnuwowna7w" path="res://Scripts/GraphControl.cs" id="1_n40uw"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n40uw"]
+bg_color = Color(0.60038817, 0.60038817, 0.60038817, 0.25)
+
+[node name="GraphRoutine" type="PanelContainer" node_paths=PackedStringArray("Graph", "EpochBar", "EpochText", "BatchBar", "BatchText", "LossText", "TimeText")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_1rpxc")
+Graph = NodePath("MarginContainer/VBoxContainer/GraphDraw")
+EpochBar = NodePath("MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/Epoch/ProgressBar")
+EpochText = NodePath("MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/Epoch/Label")
+BatchBar = NodePath("MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/Batch/ProgressBar")
+BatchText = NodePath("MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/Batch/Label")
+LossText = NodePath("MarginContainer/VBoxContainer/HBoxContainer/OverallLoss")
+TimeText = NodePath("MarginContainer/VBoxContainer/HBoxContainer/ETA")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Neural Network Training"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="OverallLoss" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Current Loss: ???"
+horizontal_alignment = 1
+
+[node name="ETA" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "ETA: ???"
+horizontal_alignment = 1
+
+[node name="GraphDraw" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+script = ExtResource("1_n40uw")
+Margins = Vector4(32, 32, 32, 32)
+GridLineSpacing = Vector2(0.5, 0.1)
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_n40uw")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Epoch" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/Epoch"]
+layout_mode = 2
+text = "Epoch: ???/???"
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer/MarginContainer/Epoch"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_n40uw")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Batch" type="VBoxContainer" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/Batch"]
+layout_mode = 2
+text = "Batch: ???/???"
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/MarginContainer/HBoxContainer/PanelContainer2/MarginContainer/Batch"]
+layout_mode = 2
+size_flags_horizontal = 3

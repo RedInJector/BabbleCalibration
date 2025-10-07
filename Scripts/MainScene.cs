@@ -111,6 +111,9 @@ public partial class MainScene : Node
             case "dilation":
                 StartRoutine<DilationRoutine>();
                 break;
+            case "trainer":
+                StartRoutine<GraphRoutine>();
+                break;
             case "close":
                 GetTree().Quit();
                 break;

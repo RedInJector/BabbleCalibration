@@ -39,4 +39,15 @@ public class GodotPacketHandler : PacketHandlerAdapter
             MainScene.Instance.StartRoutine(routineToDo);
         }).CallDeferred();
     }
+
+    public override void OnTrainerProgressReport(TrainerProgressReportPacket progressReport)
+    {
+        base.OnTrainerProgressReport(progressReport);
+        
+        Callable.From(() =>
+        {
+            var main = MainScene.Instance;
+            if (main.CurrentRoutine is GraphRoutine graph) graph.Handle(progressReport);
+        }).CallDeferred();
+    }
 }
