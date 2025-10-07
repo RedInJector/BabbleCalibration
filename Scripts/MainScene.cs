@@ -108,6 +108,9 @@ public partial class MainScene : Node
                 StartRoutine<TextTimerRoutine>(RoutineHelpers.LabelTimerRoutineArgs("KEEP EYES CLOSED {0} MORE SECONDS",
                     time, true, Transform3D.Identity.TranslatedLocal(Vector3.Forward)));
                 break;
+            case "dilation":
+                StartRoutine<DilationRoutine>();
+                break;
             case "close":
                 GetTree().Quit();
                 break;
