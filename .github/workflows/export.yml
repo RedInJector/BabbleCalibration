@@ -58,6 +58,8 @@ jobs:
         if: ${{ github.event.inputs.publish-release == 'true' }}
         uses: softprops/action-gh-release@v2
         with:
-          files: ${{ steps.export.outputs.archive_directory }}
+          files: |
+          ${{ steps.export.outputs.archive_directory }}/Windows.zip
+          ${{ steps.export.outputs.archive_directory }}/Linux.zip
           tag_name: ${{ github.event.inputs.version-number }}
           prerelease: ${{ github.event.inputs.publish-pre-release }}
