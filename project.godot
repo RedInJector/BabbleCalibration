@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="BabbleCalibration"
+config/version="1.0.0-alpha"
 run/main_scene="uid://bwo8dbr2ar8cy"
 config/features=PackedStringArray("4.5", "C#", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0.3254902, 0.62352943, 0.54509807, 1)
+boot_splash/image="uid://bxsk3vkh76fj0"
+config/icon="uid://bxsk3vkh76fj0"
+config/windows_native_icon="res://Assets/WindowIcon.ico"
 
 [autoload]
 
@@ -27,6 +31,10 @@ window/per_pixel_transparency/allowed=true
 [dotnet]
 
 project/assembly_name="BabbleCalibration"
+
+[editor]
+
+run/main_run_args="--use-debug"
 
 [editor_plugins]
 
