@@ -57,7 +57,7 @@ public partial class GraphRoutine : RoutineBase
 
         _points.Add(new Vector2(currentTime, loss));
         _interface.Graph.Points = _points.Count > 32 ? _points.TakeLast(32).ToArray() : _points.ToArray();
-        _interface.QueueRedraw();
+        _interface.Graph.QueueRedraw();
 
         if (EpochCount >= 0 && BatchCount >= 0 && EpochCurrent + BatchCurrent > 0)
         {

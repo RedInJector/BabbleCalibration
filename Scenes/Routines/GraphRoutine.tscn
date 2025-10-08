@@ -62,7 +62,9 @@ layout_mode = 2
 size_flags_vertical = 3
 script = ExtResource("1_n40uw")
 Margins = Vector4(32, 32, 32, 32)
-GridLineSpacing = Vector2(0.5, 0.1)
+Points = PackedVector2Array(0, 0, 32, 1)
+GridLineSpacing = Vector2(1, 0.1)
+TextInterval = Vector2i(3, 0)
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
