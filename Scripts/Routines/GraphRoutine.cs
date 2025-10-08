@@ -25,7 +25,7 @@ public partial class GraphRoutine : RoutineBase
         base.Initialize(backend, args);
         
         _stopwatch.Start();
-        (var element, _interface) = this.Load<GraphRoutineInterface>("res://Scenes/Routines/GraphRoutine.tscn");
+        (var element, _interface) = this.Load<GraphRoutineInterface>("res://Scenes/Routines/GraphRoutine.tscn", true);
         element.ElementTransform = Transform3D.Identity.TranslatedLocal(Vector3.Forward + (Vector3.Down * 0.25f));
     }
 
