@@ -15,7 +15,6 @@ public partial class OpenVRElement : ElementBase
         {
             if (value == _headMode) return;
             _headMode = value;
-            _overlayContainer.Call("set_tracked_device_name", _headMode ? "hmd" : "");
             UpdateTransforms();
         }
     }
@@ -41,12 +40,21 @@ public partial class OpenVRElement : ElementBase
     }
     public override float ElementWidth { get; set; }
 
+    public override void _Ready()
+    {
+        base._Ready();
+        UpdateTransforms();
+    }
+
     private void UpdateTransforms()
     {
+        if (!IsInsideTree()) return;
+        
         var absolute = _headMode ? Transform3D.Identity : ElementTransform;
         var relative = _headMode ? ElementTransform : Transform3D.Identity;
 
         _overlayContainer.Call("set_absolute_position", absolute);
         _overlayContainer.Call("set_tracked_device_relative_position", relative);
+        _overlayContainer.Call("set_tracked_device_name", _headMode ? "hmd" : "");
     }
 }

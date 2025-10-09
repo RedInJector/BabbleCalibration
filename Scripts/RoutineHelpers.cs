@@ -37,12 +37,11 @@ public static class RoutineHelpers
         };
     }
     
-    public static Dictionary ReticleRoutineArgs(Transform3D transform, float time)
+    public static Dictionary TimeArgs(float time)
     {
         return new Dictionary
         {
             {"time", time },
-            {"transform", transform },
         };
     }
 }

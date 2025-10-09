@@ -1,3 +1,4 @@
+using BabbleCalibration.Scripts.Elements;
 using BabbleCalibration.Scripts.RoutineInterfaces;
 using Godot;
 using Godot.Collections;
@@ -6,9 +7,15 @@ using OverlaySDK.Packets;
 
 namespace BabbleCalibration.Scripts.Routines;
 
-public class ReticleRoutine : RoutineBase
+public class ConvergenceRoutine : RoutineBase
 {
     private Transform3D _transform = Transform3D.Identity;
+    private float _height;
+    private float _currentTime;
+    private ElementBase _element;
+    
+    private static float InOut(float t, float b, float c, float d) => -c / 2 * (Mathf.Cos(Mathf.Pi * t / d) - 1) + b;
+    
     public override void Initialize(IBackend backend, Dictionary args = null)
     {
         base.Initialize(backend, args);
@@ -16,22 +23,35 @@ public class ReticleRoutine : RoutineBase
         if (args is not null)
         {
             var time = 10f;
-            var transform = Transform3D.Identity.TranslatedLocal((Vector3.Forward * 2) + (Vector3.Up * backend.HeadTransform().Origin.Y));
-            
+
             if (args.TryGetValue("time", out var value) && value.VariantType is Variant.Type.Float) 
                 time = value.AsSingle();
             
-            var (element, interf) = this.Load<ProgressCircle>("res://Scenes/Routines/ProgressCircle.tscn");
-            element.ElementTransform = transform;
+            _height = backend.HeadTransform().Origin.Y;
+            
+            (_element, var interf) = this.Load<ProgressCircle>("res://Scenes/Routines/ProgressCircle.tscn");
+            _element.ElementWidth = 0.075f;
+            
+            UpdateTransform();
+            
             interf.Start(time);
-
-            _transform = transform;
         }
+    }
+
+    private void UpdateTransform()
+    {
+        const float interval = 2;
+        var lerp = InOut(Mathf.PingPong(_currentTime, interval) / interval, 0, 1, 1);
+        _transform = Transform3D.Identity.TranslatedLocal((Vector3.Forward * 0.5f).Lerp(Vector3.Forward * 2, lerp) + (Vector3.Up * _height));
+        _element.ElementTransform = _transform;
     }
 
     public override void Update(float delta)
     {
         base.Update(delta);
+
+        _currentTime += delta;
+        UpdateTransform();
 
         var packet = new HmdPositionalDataPacket();
 
