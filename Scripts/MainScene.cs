@@ -138,6 +138,9 @@ public partial class MainScene : Node
             case "blink":
                 StartTextTimerRoutine("KEEP EYES CLOSED {0} MORE SECONDS");
                 break;
+            case "dilationtutorial":
+                StartTextTimerRoutine("in {0} you will be flashbanged lol");
+                break;
             case "dilation":
                 StartRoutine<DilationRoutine>();
                 break;

@@ -26,15 +26,19 @@ public partial class OpenVRBackend : Node, IBackend
 
     public ElementBase CreateHeadElement()
     {
+        GD.Print("Creating world element");
         var elem = CreateElement();
+        GD.Print("Adding child");
         ElementRoot.AddChild(elem);
+        elem.HeadMode = true;
         return elem;
     }
     public ElementBase CreateWorldElement()
     {
+        GD.Print("Creating world element");
         var elem = CreateElement();
+        GD.Print("Adding child");
         ElementRoot.AddChild(elem);
-        elem.HeadMode = true;
         return elem;
     }
 
@@ -49,5 +53,10 @@ public partial class OpenVRBackend : Node, IBackend
         return new Transform3D(head.Basis, eyeBall.Origin);
     }
 
-    private OpenVRElement CreateElement() => ResourceLoader.Load<PackedScene>("res://Scenes/Elements/OpenVRElement.tscn").Instantiate<OpenVRElement>();
+    private OpenVRElement CreateElement()
+    {
+        GD.Print("Creating element");
+        return ResourceLoader.Load<PackedScene>("res://Scenes/Elements/OpenVRElement.tscn")
+            .Instantiate<OpenVRElement>();
+    }
 }

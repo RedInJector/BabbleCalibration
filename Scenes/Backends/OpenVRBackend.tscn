@@ -2,11 +2,14 @@
 
 [ext_resource type="Script" uid="uid://bldemx0tgaq3u" path="res://Scripts/Backends/OpenVRBackend.cs" id="1_ha4r6"]
 
-[node name="OpenVRBackend" type="Node" node_paths=PackedStringArray("ElementRoot")]
+[node name="OpenVRBackend" type="Node" node_paths=PackedStringArray("ElementRoot", "Head")]
 script = ExtResource("1_ha4r6")
-ElementRoot = NodePath(".")
+ElementRoot = NodePath("ElementRoot")
+Head = NodePath("XROrigin3D/XRController3D")
 
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
 
 [node name="XRController3D" type="XRController3D" parent="XROrigin3D"]
 tracker = &"head"
+
+[node name="ElementRoot" type="Node" parent="."]
