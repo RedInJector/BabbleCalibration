@@ -81,9 +81,15 @@ public partial class OpenVRElement : ElementBase
     private void UpdateTransforms()
     {
         if (!IsInsideTree()) return;
+
+        var transform = ElementTransform;
+        var quaternion = transform.Basis.GetRotationQuaternion(); 
+        var newQuat = new Quaternion(-quaternion.X, -quaternion.Y, quaternion.Z, quaternion.W);
+
+        var newTransform = new Transform3D(new Basis(newQuat).Scaled(transform.Basis.Scale), transform.Origin);
         
-        _overlayContainer.Call("set_absolute_position", ElementTransform);
-        _overlayContainer.Call("set_tracked_device_relative_position", ElementTransform);
+        _overlayContainer.Call("set_absolute_position", newTransform);
+        _overlayContainer.Call("set_tracked_device_relative_position", newTransform);
         _overlayContainer.Call("set_tracked_device_name", _headMode ? "hmd" : "");
     }
 }
