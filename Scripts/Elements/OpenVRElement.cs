@@ -18,6 +18,11 @@ public partial class OpenVRElement : ElementBase
             UpdateTransforms();
         }
     }
+    public bool Visible
+    {
+        get => _overlayContainer.Call("is_overlay_visible").AsBool();
+        set => _overlayContainer.Call("set_overlay_visible", true);
+    }
 
     private bool _headMode = false;
 
@@ -38,12 +43,25 @@ public partial class OpenVRElement : ElementBase
         get => _viewport.Size;
         set => _viewport.Size = value;
     }
-    public override float ElementWidth { get; set; }
+
+    public override float ElementWidth
+    {
+        get => _overlayContainer.Call("get_overlay_width_in_meters").AsSingle();
+        set => _overlayContainer.Call("set_overlay_width_in_meters", value);
+    }
 
     public override void _Ready()
     {
         base._Ready();
         UpdateTransforms();
+    }
+
+    public void Reset()
+    {
+        BackendHelpers.ClearAllChildren(Root);
+        ElementTransform = Transform3D.Identity;
+        ElementResolution = Vector2I.One * 512;
+        ElementWidth = 1;
     }
 
     private void UpdateTransforms()

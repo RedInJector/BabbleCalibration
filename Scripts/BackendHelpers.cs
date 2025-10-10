@@ -31,6 +31,7 @@ public static class BackendHelpers
 
     public static void ClearAllChildren(Node node)
     {
+        if (node is null) return;
         foreach (var c in node.GetChildren())
         {
             node.RemoveChild(c);

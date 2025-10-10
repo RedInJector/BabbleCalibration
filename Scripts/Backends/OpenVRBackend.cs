@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using BabbleCalibration.Scripts.Elements;
 using Godot;
 
@@ -11,6 +12,8 @@ public partial class OpenVRBackend : Node, IBackend
     public Node Self => this;
     public bool IsOverlay => true;
     public static IBackend Create() => ResourceLoader.Load<PackedScene>("res://Scenes/Backends/OpenVRBackend.tscn").Instantiate<OpenVRBackend>();
+    private Stack<OpenVRElement> _storedPool = new();
+    private List<OpenVRElement> _usedPool = new();
     public void Initialize()
     {
         var global = GetNode("/root/OpenVRInterface");
@@ -26,23 +29,26 @@ public partial class OpenVRBackend : Node, IBackend
 
     public ElementBase CreateHeadElement()
     {
-        GD.Print("Creating world element");
         var elem = CreateElement();
-        GD.Print("Adding child");
-        ElementRoot.AddChild(elem);
         elem.HeadMode = true;
         return elem;
     }
     public ElementBase CreateWorldElement()
     {
-        GD.Print("Creating world element");
         var elem = CreateElement();
-        GD.Print("Adding child");
-        ElementRoot.AddChild(elem);
         return elem;
     }
 
-    public void ClearElements() => BackendHelpers.ClearAllChildren(ElementRoot);
+    public void ClearElements()
+    {
+        foreach (var used in _usedPool)
+        {
+            used.Visible = false;
+            _storedPool.Push(used);
+            used.Reset();
+        }
+        _usedPool.Clear();
+    }
     public Transform3D HeadTransform() => Head.GlobalTransform;
 
     public Transform3D EyeTransform(bool left)
@@ -55,8 +61,16 @@ public partial class OpenVRBackend : Node, IBackend
 
     private OpenVRElement CreateElement()
     {
-        GD.Print("Creating element");
-        return ResourceLoader.Load<PackedScene>("res://Scenes/Elements/OpenVRElement.tscn")
+        if (_storedPool.TryPop(out var result))
+        {
+            _usedPool.Add(result);
+            result.Visible = true;
+            return result;
+        }
+        result = ResourceLoader.Load<PackedScene>("res://Scenes/Elements/OpenVRElement.tscn")
             .Instantiate<OpenVRElement>();
+        ElementRoot.AddChild(result);
+        _usedPool.Add(result);
+        return result;
     }
 }
