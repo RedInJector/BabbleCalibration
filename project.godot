@@ -34,7 +34,7 @@ project/assembly_name="BabbleCalibration"
 
 [editor]
 
-run/main_run_args="--use-debug"
+run/main_run_args="--use-debug --test-routines"
 
 [editor_plugins]
 
@@ -43,6 +43,10 @@ enabled=PackedStringArray("res://addons/godot-openvr/plugin.cfg")
 [gui]
 
 theme/default_font_multichannel_signed_distance_field=true
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
 
 [xr]
 

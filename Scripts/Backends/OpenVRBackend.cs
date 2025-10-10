@@ -12,17 +12,11 @@ public partial class OpenVRBackend : Node, IBackend
     private XRInterface _interface;
     public Node Self => this;
     public bool IsOverlay => true;
-
-    [Export] public Array<OpenVRElement> StartingElements = new();
     public static IBackend Create() => ResourceLoader.Load<PackedScene>("res://Scenes/Backends/OpenVRBackend.tscn").Instantiate<OpenVRBackend>();
     private Stack<OpenVRElement> _storedPool = new();
     private List<OpenVRElement> _usedPool = new();
     public void Initialize()
     {
-        if (StartingElements is not null)
-            foreach (var elem in StartingElements) 
-                _storedPool.Push(elem);
-        
         var global = GetNode("/root/OpenVRInterface");
 
         var xrInt = global.Call("get_interface").As<XRInterface>();
