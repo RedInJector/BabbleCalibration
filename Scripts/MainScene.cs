@@ -67,12 +67,15 @@ public partial class MainScene : Node
             Task.Run(async () =>
             {
                 await Task.Delay(1000);
+                test.SendPacket(new RunFixedLenghtRoutinePacket("debug"));
+                /*
                 test.SendPacket(new RunVariableLenghtRoutinePacket("convergencetutorial", TimeSpan.FromSeconds(5)));
                 await Task.Delay(5000);
                 test.SendPacket(new RunFixedLenghtRoutinePacket("startsound"));
                 test.SendPacket(new RunVariableLenghtRoutinePacket("convergence", TimeSpan.FromSeconds(20)));
                 await Task.Delay(20000);
                 test.SendPacket(new RunFixedLenghtRoutinePacket("endsound"));
+                */
             });
         }
         else
@@ -168,6 +171,9 @@ public partial class MainScene : Node
             case "close":
                 GetTree().Quit();
                 break;
+            case "debug":
+                StartRoutine<DebugRoutine>();
+                break;
         }
 
         return;
@@ -198,7 +204,7 @@ public partial class MainScene : Node
         CurrentRoutine.Initialize(Backend, args);
 
         var elem = Backend.CreateElementWithObject(ResourceLoader.Load<PackedScene>("res://Scenes/Routines/FloorIndicator.tscn").Instantiate<PanelContainer>());
-        elem.ElementTransform = new Transform3D(new Basis(new Quaternion(Vector3.Forward, Vector3.Up)), Vector3.Up * 0.001f);
+        elem.ElementTransform = new Transform3D(new Basis(new Quaternion(Vector3.Forward, Vector3.Down)), Vector3.Up * 0.001f);
         elem.ElementWidth = 1.5f;
     }
 }
