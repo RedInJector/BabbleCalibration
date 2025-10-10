@@ -1,14 +1,32 @@
-[gd_scene load_steps=2 format=3 uid="uid://cko83rmma8nkb"]
+[gd_scene load_steps=3 format=3 uid="uid://cko83rmma8nkb"]
 
 [ext_resource type="Script" uid="uid://bldemx0tgaq3u" path="res://Scripts/Backends/OpenVRBackend.cs" id="1_ha4r6"]
+[ext_resource type="PackedScene" uid="uid://ch0fotpa4tq10" path="res://Scenes/Elements/OpenVRElement.tscn" id="2_vmr76"]
 
-[node name="OpenVRBackend" type="Node" node_paths=PackedStringArray("ElementRoot", "Head")]
+[node name="OpenVRBackend" type="Node" node_paths=PackedStringArray("ElementRoot", "Head", "StartingElements")]
 script = ExtResource("1_ha4r6")
 ElementRoot = NodePath("ElementRoot")
 Head = NodePath("XROrigin3D/XRCamera3D")
+StartingElements = [NodePath("ElementRoot/OpenVRElement"), NodePath("ElementRoot/OpenVRElement2"), NodePath("ElementRoot/OpenVRElement3"), NodePath("ElementRoot/OpenVRElement4"), NodePath("ElementRoot/OpenVRElement5"), NodePath("ElementRoot/OpenVRElement6"), NodePath("ElementRoot/OpenVRElement7"), NodePath("ElementRoot/OpenVRElement8")]
 
 [node name="XROrigin3D" type="XROrigin3D" parent="."]
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
 
 [node name="ElementRoot" type="Node" parent="."]
+
+[node name="OpenVRElement" parent="ElementRoot" instance=ExtResource("2_vmr76")]
+
+[node name="OpenVRElement2" parent="ElementRoot" instance=ExtResource("2_vmr76")]
+
+[node name="OpenVRElement3" parent="ElementRoot" instance=ExtResource("2_vmr76")]
+
+[node name="OpenVRElement4" parent="ElementRoot" instance=ExtResource("2_vmr76")]
+
+[node name="OpenVRElement5" parent="ElementRoot" instance=ExtResource("2_vmr76")]
+
+[node name="OpenVRElement6" parent="ElementRoot" instance=ExtResource("2_vmr76")]
+
+[node name="OpenVRElement7" parent="ElementRoot" instance=ExtResource("2_vmr76")]
+
+[node name="OpenVRElement8" parent="ElementRoot" instance=ExtResource("2_vmr76")]

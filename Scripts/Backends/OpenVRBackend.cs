@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using BabbleCalibration.Scripts.Elements;
 using Godot;
+using Godot.Collections;
 
 namespace BabbleCalibration.Scripts.Backends;
 
@@ -11,6 +12,8 @@ public partial class OpenVRBackend : Node, IBackend
     private XRInterface _interface;
     public Node Self => this;
     public bool IsOverlay => true;
+
+    [Export] public Array<OpenVRElement> StartingElements = new();
     public static IBackend Create() => ResourceLoader.Load<PackedScene>("res://Scenes/Backends/OpenVRBackend.tscn").Instantiate<OpenVRBackend>();
     private Stack<OpenVRElement> _storedPool = new();
     private List<OpenVRElement> _usedPool = new();
@@ -25,6 +28,10 @@ public partial class OpenVRBackend : Node, IBackend
         xrInt.Call("initialize");
 
         _interface = xrInt;
+
+        if (StartingElements is not null)
+            foreach (var elem in StartingElements) 
+                _storedPool.Push(elem);
     }
 
     public ElementBase CreateHeadElement()
