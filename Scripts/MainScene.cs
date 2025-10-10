@@ -198,7 +198,7 @@ public partial class MainScene : Node
         CurrentRoutine.Initialize(Backend, args);
 
         var elem = Backend.CreateElementWithObject(ResourceLoader.Load<PackedScene>("res://Scenes/Routines/FloorIndicator.tscn").Instantiate<PanelContainer>());
-        elem.ElementTransform = new Transform3D(new Basis(new Quaternion(Vector3.Forward, Vector3.Down)), Vector3.Up * 0.001f);
+        elem.ElementTransform = new Transform3D(new Basis(new Quaternion(Vector3.Forward, Vector3.Up)), Vector3.Up * 0.001f);
         elem.ElementWidth = 1.5f;
     }
 }
