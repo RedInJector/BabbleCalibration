@@ -7,7 +7,7 @@ namespace BabbleCalibration.Scripts.Backends;
 public partial class OpenVRBackend : Node, IBackend
 {
     [Export] public Node ElementRoot;
-    [Export] public XRController3D Head;
+    [Export] public Node3D Head;
     private XRInterface _interface;
     public Node Self => this;
     public bool IsOverlay => true;
