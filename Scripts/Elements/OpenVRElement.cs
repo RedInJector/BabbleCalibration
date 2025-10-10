@@ -64,15 +64,26 @@ public partial class OpenVRElement : ElementBase
         ElementWidth = 1;
     }
 
+    public override void _Process(double delta)
+    {
+        base._Process(delta);
+        
+        var transform = ElementTransform;
+        
+        if (!_headMode) transform = MainScene.Instance.Backend.HeadTransform().AffineInverse() * transform;
+        
+        _overlayContainer.Call("set_tracked_device_relative_position", transform);
+    }
+
     private void UpdateTransforms()
     {
-        if (!IsInsideTree()) return;
+        //if (!IsInsideTree()) return;
         
-        var absolute = _headMode ? Transform3D.Identity : ElementTransform;
-        var relative = _headMode ? ElementTransform : Transform3D.Identity;
+        //var absolute = _headMode ? Transform3D.Identity : ElementTransform;
+        //var relative = _headMode ? ElementTransform : Transform3D.Identity;
 
-        _overlayContainer.Call("set_absolute_position", absolute);
-        _overlayContainer.Call("set_tracked_device_relative_position", relative);
-        _overlayContainer.Call("set_tracked_device_name", _headMode ? "hmd" : "");
+        //_overlayContainer.Call("set_absolute_position", absolute);
+        //_overlayContainer.Call("set_tracked_device_relative_position", relative);
+        //_overlayContainer.Call("set_tracked_device_name", _headMode ? "hmd" : "");
     }
 }

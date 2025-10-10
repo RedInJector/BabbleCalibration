@@ -11,6 +11,7 @@ _viewport = NodePath("SceneOverlayContainer/SubViewport")
 Root = NodePath("SceneOverlayContainer/SubViewport/UIRoot")
 
 [node name="SceneOverlayContainer" type="OpenVROverlayContainer" parent="."]
+tracked_device_name = "hmd"
 offset_right = 40.0
 offset_bottom = 40.0
 
