@@ -82,10 +82,11 @@ public partial class OpenVRElement : ElementBase
     {
         if (!IsInsideTree()) return;
         
-        var absolute = _headMode ? Transform3D.Identity : ElementTransform;
-        var relative = _headMode ? ElementTransform : Transform3D.Identity;
+        //var absolute = _headMode ? Transform3D.Identity : ElementTransform;
+        //var relative = _headMode ? ElementTransform : Transform3D.Identity;
+        var relative = ElementTransform;
 
-        _overlayContainer.Call("set_absolute_position", absolute);
+        //_overlayContainer.Call("set_absolute_position", absolute);
         _overlayContainer.Call("set_tracked_device_relative_position", relative);
         _overlayContainer.Call("set_tracked_device_name", _headMode ? "hmd" : "");
     }
