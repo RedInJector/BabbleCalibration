@@ -19,6 +19,10 @@ public partial class OpenVRBackend : Node, IBackend
     private List<OpenVRElement> _usedPool = new();
     public void Initialize()
     {
+        if (StartingElements is not null)
+            foreach (var elem in StartingElements) 
+                _storedPool.Push(elem);
+        
         var global = GetNode("/root/OpenVRInterface");
 
         var xrInt = global.Call("get_interface").As<XRInterface>();
@@ -28,10 +32,6 @@ public partial class OpenVRBackend : Node, IBackend
         xrInt.Call("initialize");
 
         _interface = xrInt;
-
-        if (StartingElements is not null)
-            foreach (var elem in StartingElements) 
-                _storedPool.Push(elem);
     }
 
     public ElementBase CreateHeadElement()

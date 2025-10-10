@@ -19,6 +19,7 @@ public partial class OpenXRBackend : Node, IBackend
         {
             DisplayServer.WindowSetVsyncMode(DisplayServer.VSyncMode.Disabled);
             GetViewport().UseXR = true;
+            //GetWindow().Visible = false;
             _interface = xrInterface;
         }
     }
