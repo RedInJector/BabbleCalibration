@@ -67,15 +67,13 @@ public partial class MainScene : Node
             Task.Run(async () =>
             {
                 await Task.Delay(1000);
-                test.SendPacket(new RunFixedLenghtRoutinePacket("debug"));
-                /*
+                //test.SendPacket(new RunFixedLenghtRoutinePacket("debug"));
                 test.SendPacket(new RunVariableLenghtRoutinePacket("convergencetutorial", TimeSpan.FromSeconds(5)));
                 await Task.Delay(5000);
                 test.SendPacket(new RunFixedLenghtRoutinePacket("startsound"));
                 test.SendPacket(new RunVariableLenghtRoutinePacket("convergence", TimeSpan.FromSeconds(20)));
                 await Task.Delay(20000);
                 test.SendPacket(new RunFixedLenghtRoutinePacket("endsound"));
-                */
             });
         }
         else
@@ -108,17 +106,25 @@ public partial class MainScene : Node
         
         Backend.Initialize();
         
-        StartRoutine<TextRoutine>(RoutineHelpers.LabelRoutineArgs("Connecting to Baballonia...", true, Transform3D.Identity.TranslatedLocal(Vector3.Forward)));
+        StartRoutine<TextRoutine>(RoutineHelpers.LabelRoutineArgs(Tr(ConnectingString), true, Transform3D.Identity.TranslatedLocal(Vector3.Forward)));
     }
-
+    private static readonly StringName ConnectingString = "Connecting";
     public void SendPacket<T>(T packet) where T : IPacket
     {
         if (!_sendPackets) return;
         PacketHandler.Dispatcher.Dispatch(packet);
     }
 
-    private static AudioStream StartSound = ResourceLoader.Load<AudioStream>("res://Assets/drop_002.ogg");
-    private static AudioStream EndSound = ResourceLoader.Load<AudioStream>("res://Assets/confirmation_001.ogg");
+    private static readonly AudioStream StartSound = ResourceLoader.Load<AudioStream>("res://Assets/drop_002.ogg");
+    private static readonly AudioStream EndSound = ResourceLoader.Load<AudioStream>("res://Assets/confirmation_001.ogg");
+    private static readonly StringName GazeTutorialString = "GazeTutorial";
+    private static readonly StringName GazeTutorialShortString = "GazeTutorialShort";
+    private static readonly StringName BlinkTutorialString = "BlinkTutorial";
+    private static readonly StringName BlinkRoutineString = "BlinkRoutine";
+    private static readonly StringName DilationTutorialString = "DilationTutorial";
+    private static readonly StringName WidenTutorialString = "WidenTutorial";
+    private static readonly StringName WidenRoutineString = "WidenRoutine";
+    private static readonly StringName ConvergenceTutorialString = "ConvergenceTutorial";
     
     public void StartRoutine(string name, float time = 0)
     {
@@ -126,35 +132,35 @@ public partial class MainScene : Node
         {
             case "gazetutorial":
                 StartRoutine<VideoRoutine>(RoutineHelpers.FilePathRoutineArgs("res://Assets/BabbleCalibration.ogv",
-                    "TODO i dont know what text is supposed to go here {0}", true,
+                    Tr(GazeTutorialString), true,
                     Transform3D.Identity.TranslatedLocal(Vector3.Forward)));
                 break;
             case "gazetutorialshort":
-                StartTextTimerRoutine("in {0} seconds you look at reticle okay");
+                StartTextTimerRoutine(Tr(GazeTutorialShortString));
                 break;
             case "gaze":
                 StartRoutine<ReticleRoutine>(RoutineHelpers.TimeArgs(time));
                 break;
             case "blinktutorial":
-                StartTextTimerRoutine("in {0} seconds you close eyes okay");
+                StartTextTimerRoutine(Tr(BlinkTutorialString));
                 break;
             case "blink":
-                StartTextTimerRoutine("KEEP EYES CLOSED {0} MORE SECONDS");
+                StartTextTimerRoutine(Tr(BlinkRoutineString));
                 break;
             case "dilationtutorial":
-                StartTextTimerRoutine("in {0} you will be flashbanged lol");
+                StartTextTimerRoutine(Tr(DilationTutorialString));
                 break;
             case "dilation":
                 StartRoutine<DilationRoutine>();
                 break;
             case "widentutorial":
-                StartTextTimerRoutine("in {0} seconds you open eyes wide okay\nalso look straight forward");
+                StartTextTimerRoutine(Tr(WidenTutorialString));
                 break;
             case "widen":
-                StartTextTimerRoutine("keep eyes wide and straight forward {0} seconds");
+                StartTextTimerRoutine(Tr(WidenRoutineString));
                 break;
             case "convergencetutorial":
-                StartTextTimerRoutine("in {0} seconds look at the dot");
+                StartTextTimerRoutine(Tr(ConvergenceTutorialString));
                 break;
             case "convergence":
                 StartRoutine<ConvergenceRoutine>(RoutineHelpers.TimeArgs(time));
