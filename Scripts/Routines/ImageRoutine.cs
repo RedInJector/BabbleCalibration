@@ -29,7 +29,7 @@ public class ImageRoutine : RoutineBase
             var (element, interf) = this.Load<TextureRoutineInterface>("res://Scenes/Routines/ImageRoutine.tscn", head);
             interf.TextureRect.Texture = ResourceLoader.Load<Texture2D>(imagePath);
             interf.Label.Text = text;
-            element.ElementTransform = transform;
+            element.ElementTransform = (head ? Transform3D.Identity : OriginOffset) * transform;
         }
     }
 }

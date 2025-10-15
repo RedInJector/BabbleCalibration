@@ -21,6 +21,8 @@ public partial class MainScene : Node
 
     private bool _sendPackets = true;
     
+    public Transform3D OriginOffset { get; private set; }
+    
     public override void _Ready()
     {
         base._Ready();
@@ -39,14 +41,24 @@ public partial class MainScene : Node
         var xrInterface = XRServer.FindInterface("OpenXR");
         if (xrInterface != null && xrInterface.IsInitialized()) enableXr = true;
 
-        foreach (var item in argsLower)
+        var os = OS.GetName();
+        var device = OS.GetModelName().ToLower();
+        if (os == "Android")
         {
-            if (item == "--use-openvr") enableOpenVr = true;
-            else if (item == "--use-debug") enableDebug = true;
-            else if (item == "--use-openxr-overlay") enableXrOverlay = true;
-            else if (item == "--test-routines") enableTestRoutines = true;
+            enableXr = true;
+            if (device.Contains("pico")) enableXrOverlay = true; //only monado and pico support overlays
         }
-
+        else
+        {
+            foreach (var item in argsLower)
+            {
+                if (item == "--use-openvr") enableOpenVr = true;
+                else if (item == "--use-debug") enableDebug = true;
+                else if (item == "--use-openxr-overlay") enableXrOverlay = true;
+                else if (item == "--test-routines") enableTestRoutines = true;
+            }
+        }
+        
         if (!enableOpenVr && !enableXr && !enableDebug) throw new Exception("Invalid configuration, no backend provided");
         if (enableOpenVr && (enableXr || enableXrOverlay)) throw new Exception("Invalid configuration, OpenXR cannot be enabled at the same time as OpenVR");
         if (enableXrOverlay && !enableXr) throw new Exception("Invalid configuration, OpenXR must be enabled to use OpenXR Overlay");
@@ -70,10 +82,8 @@ public partial class MainScene : Node
                 //test.SendPacket(new RunFixedLenghtRoutinePacket("debug"));
                 test.SendPacket(new RunVariableLenghtRoutinePacket("convergencetutorial", TimeSpan.FromSeconds(5)));
                 await Task.Delay(5000);
-                test.SendPacket(new RunFixedLenghtRoutinePacket("startsound"));
                 test.SendPacket(new RunVariableLenghtRoutinePacket("convergence", TimeSpan.FromSeconds(20)));
                 await Task.Delay(20000);
-                test.SendPacket(new RunFixedLenghtRoutinePacket("endsound"));
             });
         }
         else
@@ -107,6 +117,17 @@ public partial class MainScene : Node
         Backend.Initialize();
         
         StartRoutine<TextRoutine>(RoutineHelpers.LabelRoutineArgs(Tr(ConnectingString), true, Transform3D.Identity.TranslatedLocal(Vector3.Forward)));
+
+        Task.Run(async () =>
+        {
+            await Task.Delay(50);
+            var headTransform = Backend.HeadTransform();
+            var position = headTransform.Origin with { Y = 0 };
+            var projected = ((headTransform.Basis.GetRotationQuaternion() * Vector3.Forward) with { Y = 0 }).Normalized();
+            var newQuaternion = new Quaternion(Vector3.Forward, projected);
+
+            OriginOffset = new Transform3D(new Basis(newQuaternion), position);
+        });
     }
     private static readonly StringName ConnectingString = "Connecting";
     public void SendPacket<T>(T packet) where T : IPacket
@@ -168,12 +189,15 @@ public partial class MainScene : Node
             case "trainer":
                 StartRoutine<GraphRoutine>();
                 break;
+            /*
             case "startsound":
                 PlaySound(StartSound);
                 break;
             case "endsound":
                 PlaySound(EndSound);
                 break;
+                */
+            //blame red
             case "close":
                 GetTree().Quit();
                 break;
@@ -187,7 +211,8 @@ public partial class MainScene : Node
             StartRoutine<TextTimerRoutine>(RoutineHelpers.LabelTimerRoutineArgs(text,
                 time, true, Transform3D.Identity.TranslatedLocal(Vector3.Forward)));
     }
-
+    public void PlayStartSound() => PlaySound(StartSound);
+    public void PlayEndSound() => PlaySound(EndSound);
     private void PlaySound(AudioStream stream)
     {
         _audioPlayer.Stop();
@@ -210,7 +235,7 @@ public partial class MainScene : Node
         CurrentRoutine.Initialize(Backend, args);
 
         var elem = Backend.CreateElementWithObject(ResourceLoader.Load<PackedScene>("res://Scenes/Routines/FloorIndicator.tscn").Instantiate<PanelContainer>());
-        elem.ElementTransform = new Transform3D(new Basis(new Quaternion(Vector3.Forward, Vector3.Down)), Vector3.Up * 0.001f);
+        elem.ElementTransform = OriginOffset * new Transform3D(new Basis(new Quaternion(Vector3.Forward, Vector3.Down)), Vector3.Up * 0.001f);
         elem.ElementWidth = 1.5f;
     }
 }

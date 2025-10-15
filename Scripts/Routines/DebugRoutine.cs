@@ -5,6 +5,7 @@ namespace BabbleCalibration.Scripts.Routines;
 
 public class DebugRoutine : RoutineBase
 {
+    public override bool PlaySounds => true;
     public override void Initialize(IBackend backend, Dictionary args = null)
     {
         base.Initialize(backend, args);
@@ -30,7 +31,7 @@ public class DebugRoutine : RoutineBase
             var elem = backend.CreateElementWithObject(label);
 
             var rotation = new Quaternion(Vector3.Forward, direction);
-            elem.ElementTransform = new Transform3D(new Basis(rotation), direction + up);
+            elem.ElementTransform = OriginOffset * new Transform3D(new Basis(rotation), direction + up);
         }
     }
 }

@@ -29,7 +29,7 @@ public class TextTimerRoutine : RoutineBase
             
             
             (var element, Interface) = this.Load<LabelTimerRoutineInterface>("res://Scenes/Routines/TextTimerRoutine.tscn", head);
-            element.ElementTransform = transform;
+            element.ElementTransform = (head ? Transform3D.Identity : OriginOffset) * transform;
 
             Interface.Timer.WaitTime = time;
             Interface.Timer.Start();
