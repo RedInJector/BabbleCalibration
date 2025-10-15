@@ -23,6 +23,7 @@ public class ReticleRoutine : RoutineBase
             
             var (element, interf) = this.Load<ProgressCircle>("res://Scenes/Routines/ProgressCircle.tscn");
             element.ElementTransform = transform;
+            element.ElementWidth = 0.1f;
             interf.Start(time);
 
             _transform = transform;
