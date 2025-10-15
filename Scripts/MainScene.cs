@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Linq;
+using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
 using BabbleCalibration.Scripts;
@@ -20,6 +21,28 @@ public partial class MainScene : Node
     public GodotPacketHandler PacketHandler { get; private set; }
 
     private bool _sendPackets = true;
+
+    private Socket TryConnect(int retries = 5)
+    {
+        int reconnectCounter = 0;
+        while (true)
+        {
+            try
+            {
+                var sock = new SocketFactory().CreateClient("127.0.0.1", 2425);
+                return sock;
+            }
+            catch (Exception e)
+            {
+                reconnectCounter++;
+                Thread.Sleep(500);
+                if (reconnectCounter > retries)
+                {
+                    return null;
+                }
+            }
+        }
+    }
     
     public Transform3D OriginOffset { get; private set; }
     
@@ -88,6 +111,13 @@ public partial class MainScene : Node
         }
         else
         {
+            Socket sock = TryConnect();
+            if (sock == null)
+            {
+                GD.Print("Could not connect to Baballonia");
+                GetTree().Quit(-1);
+                return;
+            }
             try
             {
                 PacketHandler = new GodotPacketHandler
@@ -97,7 +127,7 @@ public partial class MainScene : Node
                         new GodotLogger(), 
                         new EventDrivenJsonClient
                         (
-                            new EventDrivenTcpClient(new SocketFactory().CreateClient("127.0.0.1", 2425))
+                            new EventDrivenTcpClient(sock)
                         )
                     )
                 );
