@@ -6,6 +6,7 @@ namespace BabbleCalibration.Scripts.Routines;
 
 public class DilationRoutine : RoutineBase
 {
+    public override bool PlaySounds => true;
     private GradientTexture1D _texture = new();
     private Gradient _gradient = new();
     private Stopwatch _stopwatch = new();

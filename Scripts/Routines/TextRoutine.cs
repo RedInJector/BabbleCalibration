@@ -26,7 +26,7 @@ public class TextRoutine : RoutineBase
             
             var (element, interf) = this.Load<LabelRoutineInterface>("res://Scenes/Routines/TextRoutine.tscn", head);
             interf.Label.Text = text;
-            element.ElementTransform = transform;
+            element.ElementTransform = (head ? Transform3D.Identity : OriginOffset) * transform;
         }
     }
 }

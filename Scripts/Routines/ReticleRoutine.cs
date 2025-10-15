@@ -8,6 +8,7 @@ namespace BabbleCalibration.Scripts.Routines;
 
 public class ReticleRoutine : RoutineBase
 {
+    public override bool PlaySounds => true;
     private Transform3D _transform = Transform3D.Identity;
     public override void Initialize(IBackend backend, Dictionary args = null)
     {
@@ -22,10 +23,9 @@ public class ReticleRoutine : RoutineBase
                 time = value.AsSingle();
             
             var (element, interf) = this.Load<ProgressCircle>("res://Scenes/Routines/ProgressCircle.tscn");
-            element.ElementTransform = transform;
+            _transform = element.ElementTransform = OriginOffset * transform;
+            element.ElementWidth = 0.075f;
             interf.Start(time);
-
-            _transform = transform;
         }
     }
 

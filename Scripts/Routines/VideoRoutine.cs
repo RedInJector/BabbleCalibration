@@ -35,7 +35,7 @@ public class VideoRoutine : RoutineBase
             interf.Video.Stream = ResourceLoader.Load<VideoStream>(videoPath);
             interf.Video.Play();
             interf.Label.Text = text;
-            tutorial.ElementTransform = transform;
+            tutorial.ElementTransform = (head ? Transform3D.Identity : OriginOffset) * transform;
 
             _interface = interf;
             _text = text;

@@ -9,6 +9,7 @@ namespace BabbleCalibration.Scripts.Routines;
 
 public class ConvergenceRoutine : RoutineBase
 {
+    public override bool PlaySounds => true;
     private Transform3D _transform = Transform3D.Identity;
     private float _height;
     private float _currentTime;
@@ -42,7 +43,7 @@ public class ConvergenceRoutine : RoutineBase
     {
         const float interval = 2;
         var lerp = InOut(Mathf.PingPong(_currentTime, interval) / interval, 0, 1, 1);
-        _transform = Transform3D.Identity.TranslatedLocal((Vector3.Forward * 0.5f).Lerp(Vector3.Forward * 2, lerp) + (Vector3.Up * _height));
+        _transform = OriginOffset * Transform3D.Identity.TranslatedLocal((Vector3.Forward * 0.5f).Lerp(Vector3.Forward * 2, lerp) + (Vector3.Up * _height));
         _element.ElementTransform = _transform;
     }
 
